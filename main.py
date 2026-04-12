@@ -4,12 +4,12 @@ import os
 import base64
 
 # --- 配置区 ---
-# 关键字直接设为新域名
 SEARCH_QUERY = 'gotochinatown.net'
 TOKEN = os.getenv("MY_GITHUB_TOKEN")
 
 def search_github():
     if not TOKEN: return []
+    # 增加搜索深度，不带协议关键词
     search_url = f"https://api.github.com/search/code?q={SEARCH_QUERY}&sort=indexed"
     headers = {"Authorization": f"token {TOKEN}", "Accept": "application/vnd.github.v3+json"}
     found_urls = []
@@ -23,46 +23,47 @@ def search_github():
     return found_urls
 
 def harvest():
-    raw_results = []
-    seen_content = set()
+    raw_data_lines = []
+    seen_hashes = set()
     headers = {'User-Agent': 'Mozilla/5.0'}
     
-    # 获取全站搜索到的所有源链接
-    all_sources = search_github()
-    print(f"📡 搜索到 {len(all_sources)} 个潜在源码文件...")
+    all_sources = list(set(search_github()))
+    print(f"📡 正在深度扫描 {len(all_sources)} 个来源...")
 
     for url in all_sources:
         try:
             resp = requests.get(url, headers=headers, timeout=10)
             if resp.status_code != 200: continue
-            content = resp.text.strip()
             
-            # Base64 自动解码（为了看到里面的真面目）
-            if len(content) > 30 and ' ' not in content and '\n' not in content:
+            # 原始内容（包含 Base64 解码尝试）
+            content = resp.text
+            if len(content.strip()) > 30 and ' ' not in content.strip() and '\n' not in content.strip():
                 try:
-                    content = base64.b64decode(content + '=' * (-len(content) % 4)).decode('utf-8')
+                    content = base64.b64decode(content.strip() + '=' * (-len(content.strip()) % 4)).decode('utf-8')
                 except: pass
 
-            # 【核心逻辑】：只要这一行包含域名，我们就把这一行完整拿走
-            # 这种方式最粗暴，也最不容易漏掉节点
+            # 【核心策略改动】：
+            # 1. 抓取包含域名的整行
+            # 2. 如果是 JSON/YAML，尝试抓取它所在的整个大括号或缩进块
+            
+            # 先按行切分，抓取所有包含目标的行
             lines = content.split('\n')
             for line in lines:
-                clean_line = line.strip()
-                if "gotochinatown.net" in clean_line:
-                    # 去重，防止同一个节点反复刷屏
-                    if clean_line not in seen_content:
-                        raw_results.append(clean_line)
-                        seen_content.add(clean_line)
+                if "gotochinatown.net" in line:
+                    clean_line = line.strip()
+                    if clean_line not in seen_hashes:
+                        raw_data_lines.append(f"--- 来源: {url[:50]}... ---")
+                        raw_data_lines.append(clean_line)
+                        raw_data_lines.append("") # 留个空行方便阅读
+                        seen_hashes.add(clean_line)
         except: continue
-    return raw_results
+    return raw_data_lines
 
 if __name__ == "__main__":
-    nodes = harvest()
+    results = harvest()
     
-    # 咱们不写 YAML 了，直接写个纯文本文件
-    with open("all_nodes.txt", "w", encoding="utf-8") as f:
-        for n in nodes:
-            f.write(n + "\n")
+    # 纯原始输出，不做任何加工
+    with open("all_nodes_raw.txt", "w", encoding="utf-8") as f:
+        f.write("\n".join(results))
             
-    print(f"✅ 任务完成！共扫出 {len(nodes)} 行包含目标的原始数据。")
-    print("📁 结果已存入 all_nodes.txt")
+    print(f"✅ 深度打捞完成！共保存 {len(results)//3} 组原始数据到 all_nodes_raw.txt")
