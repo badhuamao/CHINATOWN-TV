@@ -9,7 +9,7 @@ TOKEN = os.getenv("MY_GITHUB_TOKEN")
 
 def search_github():
     if not TOKEN: return []
-    # 扩大搜索范围，不带协议前缀，只搜域名
+    # 扩大搜索范围
     search_url = f"https://api.github.com/search/code?q={SEARCH_QUERY}&sort=indexed"
     headers = {"Authorization": f"token {TOKEN}", "Accept": "application/vnd.github.v3+json"}
     found_urls = []
@@ -23,42 +23,42 @@ def search_github():
     return found_urls
 
 def harvest():
-    raw_results = []
-    seen_lines = set()
+    raw_data = []
+    seen_hashes = set()
     headers = {'User-Agent': 'Mozilla/5.0'}
     
-    all_sources = search_github()
-    print(f"📡 正在深度扫荡 {len(all_sources)} 个源文件...")
+    all_sources = list(set(search_github()))
+    print(f"📡 开始深度打捞，来源总数: {len(all_sources)}")
 
     for url in all_sources:
         try:
             resp = requests.get(url, headers=headers, timeout=10)
             if resp.status_code != 200: continue
             
-            # Base64 自动穿透逻辑（处理订阅链接）
-            content = resp.text.strip()
-            if len(content) > 30 and ' ' not in content and '\n' not in content:
+            content = resp.text
+            # 尝试处理 Base64 编码（很多 VMess 订阅是全编码的）
+            if len(content.strip()) > 30 and ' ' not in content.strip() and '\n' not in content.strip():
                 try:
-                    content = base64.b64decode(content + '=' * (-len(content) % 4)).decode('utf-8', errors='ignore')
+                    content = base64.b64decode(content.strip() + '=' * (-len(content.strip()) % 4)).decode('utf-8', errors='ignore')
                 except: pass
 
-            # 【核心策略：整行收割】
+            # 【野蛮逻辑】：只要这一行包含域名，整行抓走，不做任何剔除
             lines = content.split('\n')
             for line in lines:
                 if "gotochinatown.net" in line:
                     clean_line = line.strip()
-                    if clean_line and clean_line not in seen_lines:
-                        # 记录每一行，不管它是什么协议
-                        raw_results.append(clean_line)
-                        seen_lines.add(clean_line)
+                    if clean_line and clean_line not in seen_hashes:
+                        raw_data.append(clean_line)
+                        seen_hashes.add(clean_line)
         except: continue
-    return raw_results
+    return raw_data
 
 if __name__ == "__main__":
-    nodes = harvest()
-    # 结果存入 raw_harvest.txt，这就是咱们的“原始矿堆”
-    with open("raw_harvest.txt", "w", encoding="utf-8") as f:
-        for n in nodes:
-            f.write(n + "\n")
+    results = harvest()
+    
+    # 统一文件名，方便你查看
+    with open("all_nodes.txt", "w", encoding="utf-8") as f:
+        for r in results:
+            f.write(r + "\n")
             
-    print(f"✅ 深度收割完成！共抓获 {len(nodes)} 条原始数据。")
+    print(f"✅ 打捞完成！共捕获 {len(results)} 条原始数据。")
