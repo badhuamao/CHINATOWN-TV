@@ -1,4 +1,0 @@
-，备用下载地址（文件名后缀`_x64.exe`）：[Clash Verge Windows安装包下载](https://webdav.jzy88.top:8011/clash_verge_install/clash_verge_windows.exe)
-server: sgp3xui.jzy88.top,
-"server": "xui.jzy88.top",
-"<strong>文档:</strong> <a href='https://clashdoc.jzy88.top' target='_blank'>查看教程</a>",
