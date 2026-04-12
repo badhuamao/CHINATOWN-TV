@@ -4,7 +4,7 @@ import os
 import base64
 
 # --- 配置区 ---
-SEARCH_QUERY = 'jzy88.top' # 换成新地盘
+SEARCH_QUERY = 'dafei.de' # 换成新地盘
 TOKEN = os.getenv("MY_GITHUB_TOKEN")
 
 def search_github():
