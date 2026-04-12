@@ -1,19 +1,7 @@
-- {name: 🇭🇰 香港6|@ripaojiedian 2, server: hkt.gotochinatown.net, port: 80, type: vmess, uuid: b68f4b4c-2d02-11ec-9ee8-f23c913c8d2b, alterId: 2, cipher: auto, tls: false, skip-cert-verify: false, network: ws, ws-opts: {path: /, headers: {Host: broadcastlv.chat.bilibili.com}}}
-香港精品 = vmess, hkt.gotochinatown.net, 80, username = f8c51b52-2bbb-11eb-a8bf-f23c91cfbbc9, ws = true, vmess-aead = false, tfo = false
-- {name: 🇭🇰 HK, server: 3f637c17-t94cg0-tcuz7t-1ta58.hkt.gotochinatown.net, port: 80, type: vmess, uuid: e2d8b574-e089-11ef-9cc7-f23c9164ca5d, alterId: 2, cipher: auto, tls: false, skip-cert-verify: true, network: ws, ws-opts: {path: /, headers: {Host: broadcastlv.chat.bilibili.com}}, tfo: false}
-hysteria2://5cfee98c-0e3b-11ed-bd7c-f23c913c8d2b@dad5fcbe-sv4n40-t0hae4-1curq.hy2.gotochinatown.net:8443?insecure=0#10%7C%D8%B3%D8%B1%D9%88%D8%B1%20%D8%A7%DB%8C%20%D8%B1%D8%B1%20%40vmess_ir
-hysteria2://dcdb1278-4b7d-11ed-bb74-f23c9164ca5d@b2c00bcd-sv4n40-t9uin7-19ord.hy2.gotochinatown.net:8443?insecure=0#10%7C%DA%A9%D8%A7%D9%86%D9%81%DB%8C%DA%AF%20%D9%BE%D8%B1%D8%B3%D8%B1%D8%B9%D8%AA%20%D8%B1%D8%A7%DB%8C%DA%AF%D8%A7%D9%86%F0%9F%8C%8B%40vmesc
-hysteria2://fbf91120-50ba-11ef-a203-f23c91cfbbc9@80f221ad-sv8cg0-sy9xc0-1s3lb.hy2.gotochinatown.net:8443?insecure=0#10%7C%DA%A9%D8%A7%D9%86%D9%81%DB%8C%DA%AF%20%D9%BE%D8%B1%D8%B3%D8%B1%D8%B9%D8%AA%20%D8%B1%D8%A7%DB%8C%DA%AF%D8%A7%D9%86%F0%9F%8C%8B%40vmesc%20%231
-server: hkt.gotochinatown.net
-Host: hkt.gotochinatown.net
-server: 5804d996-t70f40-tonrmx-8n27.hkt.gotochinatown.net
-Host: 5804d996-t70f40-tonrmx-8n27.hkt.gotochinatown.net
-server: 010ece56-t6r5s0-thd0h1-1rz5s.hkt.gotochinatown.net
-Host: 010ece56-t6r5s0-thd0h1-1rz5s.hkt.gotochinatown.net
-hy2://203d1d64-3313-11ed-bb74-f23c9164ca5d@107.167.18.102:8443?sni=0e1462f1-sum4g0-t8ro7t-1ey07.hy2.gotochinatown.net#%F0%9F%87%BA%F0%9F%87%B8%20United%20States%20-%20Los%20Angeles%20%F0%9F%8C%8E%20HY2-UDP-TLS%204%E2%83%A3%20t.me%2Frjsxrd
-hy2://203d1d64-3313-11ed-bb74-f23c9164ca5d@107.167.18.102:8443?sni=0e1462f1-sum4g0-t8ro7t-1ey07.hy2.gotochinatown.net#⭐@mshojaei77%20t.me%2Frjsxrd
-hy2://203d1d64-3313-11ed-bb74-f23c9164ca5d@107.167.18.102:8443?sni=d7b8355e-suk9s0-t8ro7t-1ey07.hy2.gotochinatown.net#%F0%9F%87%BA%F0%9F%87%B8%20United%20States%20-%20Los%20Angeles%20%F0%9F%8C%8E%20HY2-UDP-TLS%204%E2%83%A3%20t.me%2Frjsxrd
-hy2://203d1d64-3313-11ed-bb74-f23c9164ca5d@107.167.18.102:8443?sni=d7b8355e-suk9s0-t8ro7t-1ey07.hy2.gotochinatown.net#⭐@mshojaei77%20t.me%2Frjsxrd
+server: 2360acfc-shg1s0-skrj9l-5bjr.hkt.gotochinatown.net
+server: 8d58d307-t70f40-tb3p3s-lj7z.hkt.gotochinatown.net
+vmess://93fb69fc-77cf-11ee-85ee-f23c91369f2d@hkt.gotochinatown.net:80?type=none&host=hkt.gotochinatown.net&path=%2F#%40dimensionconnex.github.io%20%E9%A6%99%E6%B8%AF 014
+- {name: "@filembad 4", server: c309eb1e-tbn340-td3l0d-1lkt0.hkt.gotochinatown.net, port: 80, type: vmess, uuid: cd1b0ae0-4010-11ee-953a-f23c9164ca5d, alterId: 2, cipher: auto, tls: false, skip-cert-verify: false, servername: broadcastlv.chat.bilibili.com, network: ws, ws-opts: {path: /, headers: {Host: c309eb1e-tbn340-td3l0d-1lkt0.hkt.gotochinatown.net}}, udp: true, tfo: false}
 - {"name":"🇭🇰 香港 | HKG","server":"f098ccea-t8lts0-thzbn1-1gxvd.hkt.gotochinatown.net","port":80,"type":"vmess","uuid":"398e0d38-8649-11ef-959c-f23c9164ca5d","alterId":2,"cipher":"auto","tls":false,"network":"ws","ws-opts":{"path":"/","headers":{"Host":"broadcastlv.chat.bilibili.com"}},"udp":true}
 - {"name":"🇭🇰 香港 | HKG 11","server":"b9b86852-tbdts0-tlpfci-1jdha.hkt.gotochinatown.net","port":80,"type":"vmess","uuid":"de629d50-1711-11ed-bd7c-f23c913c8d2b","alterId":2,"cipher":"auto","tls":false,"network":"ws","ws-opts":{"path":"/","headers":{"Host":"broadcastlv.chat.bilibili.com"}},"udp":true}
 - {"name":"🇭🇰 香港 | HKG 12","server":"3780d5e8-t9hb40-thvc3p-1o4kv.hkt.gotochinatown.net","port":80,"type":"vmess","uuid":"87b31a02-172e-11ee-a11f-f23c913c8d2b","alterId":2,"cipher":"auto","tls":false,"network":"ws","ws-opts":{"path":"/","headers":{"Host":"broadcastlv.chat.bilibili.com"}},"udp":true}
@@ -24,6 +12,31 @@ hy2://203d1d64-3313-11ed-bb74-f23c9164ca5d@107.167.18.102:8443?sni=d7b8355e-suk9
 - {"name":"🇭🇰 香港 | HKG 3","server":"982216af-t9w4g0-tbdyji-ach1.hkt.gotochinatown.net","port":80,"type":"vmess","uuid":"b9c9905c-1627-11ec-a0fc-f23c913c8d2b","alterId":2,"cipher":"auto","tls":false,"network":"ws","ws-opts":{"path":"/","headers":{"Host":"broadcastlv.chat.bilibili.com"}},"udp":true}
 - {"name":"🇭🇰 香港 | HKG 4","server":"hkt.gotochinatown.net","port":80,"type":"vmess","uuid":"a6cf58d6-14d1-11eb-a8bf-f23c91cfbbc9","alterId":2,"cipher":"auto","tls":false,"skip-cert-verify":true,"network":"ws","ws-opts":{"path":"/","headers":{"Host":"hkt.gotochinatown.net"}},"udp":true,"servername":"hkt.gotochinatown.net"}
 - {"name":"🇭🇰 香港 | HKG 9","server":"c9ffbfe1-t9w4g0-tei4of-1qxa1.hkt.gotochinatown.net","port":80,"type":"vmess","uuid":"f609abb4-ed17-11ee-9fa2-f23c9164ca5d","alterId":2,"cipher":"auto","tls":false,"network":"ws","ws-opts":{"path":"/","headers":{"Host":"broadcastlv.chat.bilibili.com"}},"udp":true}
+"server": "hkt.gotochinatown.net",
+"server": "4e93016d-t9xz40-t9x9zr-1lkt0.hkt.gotochinatown.net",
+"server": "d3dee6ad-t9hb40-t9x9zr-1lkt0.hkt.gotochinatown.net",
+"server": "4b5ef466-t8pj40-tbicd9-1go3q.hkt.gotochinatown.net",
+"server": "07b0ba0a-t9xz40-tbicd9-1go3q.hkt.gotochinatown.net",
+"server": "4f8efd2d-t8wxs0-tbicd9-1go3q.hkt.gotochinatown.net",
+"server": "11f04719-t9w4g0-t9x9zr-1lkt0.hkt.gotochinatown.net",
+"hkt.gotochinatown.net"
+"server": "46876f2c-t9qkg0-t9x9zr-1lkt0.hkt.gotochinatown.net",
+"server": "2e4b9b34-t8ysg0-tbicd9-1go3q.hkt.gotochinatown.net",
+hysteria2://9ad05870-d8c5-11ef-9f1c-f23c913c8d2b@ce8ae4b9-svn5s0-swbt02-g3b3.hy2.gotochinatown.net:8443?sni=ce8ae4b9-svn5s0-swbt02-g3b3.hy2.gotochinatown.net&insecure=0#%F0%9F%87%BA%F0%9F%87%B896%20%7C%20%202.4MB%2Fs
+hysteria2://607d365e-7ea1-11ee-95e9-f23c913c8d2b@69ad0675-sw5og0-sx7hbg-1mmbp.hy2.gotochinatown.net:8443?sni=69ad0675-sw5og0-sx7hbg-1mmbp.hy2.gotochinatown.net&insecure=0#%F0%9F%87%BA%F0%9F%87%B8104%20%7C%20%202.1MB%2Fs
+hysteria2://e3975a05-b89e-11ec-a50d-f23c91cfbbc9@d5d8af9a-svlb40-sxf56z-1f596.hy2.gotochinatown.net:8443?sni=d5d8af9a-svlb40-sxf56z-1f596.hy2.gotochinatown.net&insecure=0#%F0%9F%87%BA%F0%9F%87%B8105%20%7C%20%202.9MB%2Fs
+hysteria2://607d365e-7ea1-11ee-95e9-f23c913c8d2b@ccb2a204-sw1z40-sx7hbg-1mmbp.hy2.gotochinatown.net:8443?sni=ccb2a204-sw1z40-sx7hbg-1mmbp.hy2.gotochinatown.net&insecure=0#%F0%9F%87%BA%F0%9F%87%B8109%20%7C%20%203.2MB%2Fs
+hysteria2://8e0f8ef2-5fe3-11ec-a8bf-f23c91cfbbc9@1ec1d0fd-sw3ts0-swdpud-duku.hy2.gotochinatown.net:8443?sni=1ec1d0fd-sw3ts0-swdpud-duku.hy2.gotochinatown.net&insecure=0#%F0%9F%87%BA%F0%9F%87%B8116%20%7C%20%201.2MB%2Fs
+SEARCH_QUERY = 'gotochinatown.net'
+if "gotochinatown.net" in line:
+hysteria2://5cfee98c-0e3b-11ed-bd7c-f23c913c8d2b@dad5fcbe-sv4n40-t0hae4-1curq.hy2.gotochinatown.net:8443?insecure=0#10%7C%D8%B3%D8%B1%D9%88%D8%B1%20%D8%A7%DB%8C%20%D8%B1%D8%B1%20%40vmess_ir
+hysteria2://dcdb1278-4b7d-11ed-bb74-f23c9164ca5d@b2c00bcd-sv4n40-t9uin7-19ord.hy2.gotochinatown.net:8443?insecure=0#10%7C%DA%A9%D8%A7%D9%86%D9%81%DB%8C%DA%AF%20%D9%BE%D8%B1%D8%B3%D8%B1%D8%B9%D8%AA%20%D8%B1%D8%A7%DB%8C%DA%AF%D8%A7%D9%86%F0%9F%8C%8B%40vmesc
+hysteria2://fbf91120-50ba-11ef-a203-f23c91cfbbc9@80f221ad-sv8cg0-sy9xc0-1s3lb.hy2.gotochinatown.net:8443?insecure=0#10%7C%DA%A9%D8%A7%D9%86%D9%81%DB%8C%DA%AF%20%D9%BE%D8%B1%D8%B3%D8%B1%D8%B9%D8%AA%20%D8%B1%D8%A7%DB%8C%DA%AF%D8%A7%D9%86%F0%9F%8C%8B%40vmesc%20%231
+server: e8faf291-tbdts0-tcdmjc-1gevg.hkt.gotochinatown.net
+Host: e8faf291-tbdts0-tcdmjc-1gevg.hkt.gotochinatown.net
+server: 5545a4de-t8lts0-tasors-1tdqt.hkt.gotochinatown.net
+Host: 5545a4de-t8lts0-tasors-1tdqt.hkt.gotochinatown.net
+gotochinatown.net
 server: d90d72cd-t6r5s0-t95ncr-1slop.hkt.gotochinatown.net
 server: e41077bf-t70f40-t7bo2t-1psmw.hkt.gotochinatown.net
 server: b8355a46-t6g1s0-t7vzvm-1j0a4.hkt.gotochinatown.net
@@ -44,108 +57,70 @@ server: 7c31dbe6-t9mv40-tipjoa-1slop.hkt.gotochinatown.net
 server: e9c33324-t70f40-tcdlur-1qwom.hkt.gotochinatown.net
 server: 2240720f-t70f40-t95ncr-1slop.hkt.gotochinatown.net
 server: 3d0c52fb-t70f40-t7v83h-1kcpe.hkt.gotochinatown.net
-"server": "hkt.gotochinatown.net",
-"server": "4e93016d-t9xz40-t9x9zr-1lkt0.hkt.gotochinatown.net",
-"server": "d3dee6ad-t9hb40-t9x9zr-1lkt0.hkt.gotochinatown.net",
-"server": "4b5ef466-t8pj40-tbicd9-1go3q.hkt.gotochinatown.net",
-"server": "07b0ba0a-t9xz40-tbicd9-1go3q.hkt.gotochinatown.net",
-"server": "4f8efd2d-t8wxs0-tbicd9-1go3q.hkt.gotochinatown.net",
-"server": "11f04719-t9w4g0-t9x9zr-1lkt0.hkt.gotochinatown.net",
-"hkt.gotochinatown.net"
-"server": "46876f2c-t9qkg0-t9x9zr-1lkt0.hkt.gotochinatown.net",
-"server": "2e4b9b34-t8ysg0-tbicd9-1go3q.hkt.gotochinatown.net",
-server: 8d58d307-t70f40-tb3p3s-lj7z.hkt.gotochinatown.net
-server: in.gotochinatown.net
-server: uk.gotochinatown.net
-server: au.gotochinatown.net
-server: de.gotochinatown.net
-hysteria2://7af3db60-b2d9-11ef-88ab-f23c913c8d2b@a0ee1004-sum4g0-t7qex7-1supq.hy2.gotochinatown.net:8443?sni=a0ee1004-sum4g0-t7qex7-1supq.hy2.gotochinatown.net&insecure=1#%E7%BE%8E%E5%9B%BD8443
-SEARCH_QUERY = 'gotochinatown.net'
-# 模式 1：直连提取 (锁定 gotochinatown.net)
-if "gotochinatown.net" in block:
+server: hkt.gotochinatown.net
+Host: hkt.gotochinatown.net
+//   "DOMAIN-SUFFIX,gotochinatown.net,DIRECT",
+- {name: 🇭🇰 HK, server: 3f637c17-t94cg0-tcuz7t-1ta58.hkt.gotochinatown.net, port: 80, type: vmess, uuid: e2d8b574-e089-11ef-9cc7-f23c9164ca5d, alterId: 2, cipher: auto, tls: false, skip-cert-verify: true, network: ws, ws-opts: {path: /, headers: {Host: broadcastlv.chat.bilibili.com}}, tfo: false}
+- {name: HK_speednode_0010, server: d928a6f8-t9zts0-tcc9uq-1rnrp.hkt.gotochinatown.net, port: 80, type: vmess, uuid: 989aa406-ea9b-11ef-97da-f23c91cfbbc9, alterId: 2, cipher: auto, tls: false, skip-cert-verify: false, network: ws, ws-opts: {path: /, headers: {Host: broadcastlv.chat.bilibili.com}}, udp: true}
+- {name: HK_speednode_0011, server: 1389306e-t9w4g0-tcr22d-1rsuw.hkt.gotochinatown.net, port: 80, type: vmess, uuid: 0de37cdc-abff-11ef-b7c6-f23c913c8d2b, alterId: 2, cipher: auto, tls: false, skip-cert-verify: false, network: ws, ws-opts: {path: /, headers: {Host: broadcastlv.chat.bilibili.com}}, udp: true}
+- {name: HK_speednode_0012, server: hkt.gotochinatown.net, port: 80, type: vmess, uuid: a2b0fd2b-716f-0df8-d4e2-03a1c00e5f1a, alterId: 2, cipher: auto, tls: false, skip-cert-verify: false, servername: broadcastlv.chat.bilibili.com, network: ws, ws-opts: {path: /, headers: {Host: hkt.gotochinatown.net}}, udp: true}
+- {name: HK_speednode_0013, server: cef91d7a-t70f40-to8xn3-l4nv.hkt.gotochinatown.net, port: 80, type: vmess, uuid: 1469e09e-027c-11ec-a0fc-f23c913c8d2b, alterId: 2, cipher: auto, tls: false, skip-cert-verify: false, servername: broadcastlv.chat.bilibili.com, network: ws, ws-opts: {path: /, headers: {Host: cef91d7a-t70f40-to8xn3-l4nv.hkt.gotochinatown.net}}, udp: true}
+- {name: HK_speednode_0015, server: hkt.gotochinatown.net, port: 80, type: vmess, uuid: 0114339c-488d-11ee-8792-f23c9164ca5d, alterId: 2, cipher: auto, tls: false, skip-cert-verify: false, network: ws, ws-opts: {path: /, headers: {Host: hkt.gotochinatown.net}}, udp: true}
+- {name: HK_speednode_0016, server: ff61e176-t9u9s0-tsjk4v-1atkp.hkt.gotochinatown.net, port: 80, type: vmess, uuid: 1ec223c0-1ed9-11ec-a8bf-f23c91cfbbc9, alterId: 2, cipher: auto, tls: false, skip-cert-verify: false, network: ws, ws-opts: {path: /, headers: {Host: broadcastlv.chat.bilibili.com}}, udp: true}
+- {name: HK_speednode_0017, server: hkt.gotochinatown.net, port: 80, type: vmess, uuid: b02327ac-a49a-11ef-a673-f23c913c8d2b, alterId: 2, cipher: auto, tls: false, skip-cert-verify: false, network: ws, ws-opts: {path: /, headers: {Host: hkt.gotochinatown.net}}, udp: true}
+- {name: HK_speednode_0018, server: cef91d7a-t70f40-to8xn3-l4nv.hkt.gotochinatown.net, port: 80, type: vmess, uuid: 1469e09e-027c-11ec-a0fc-f23c913c8d2b, alterId: 2, cipher: auto, tls: false, skip-cert-verify: false, network: ws, ws-opts: {path: /, headers: {Host: cef91d7a-t70f40-to8xn3-l4nv.hkt.gotochinatown.net}}, udp: true}
+- {name: HK_speednode_0019, server: 1808992d-t9mv40-tcmken-19les.hkt.gotochinatown.net, port: 80, type: vmess, uuid: d095ecc6-7b69-11eb-b77b-f23c913c8d2b, alterId: 2, cipher: auto, tls: false, skip-cert-verify: false, network: ws, ws-opts: {path: /, headers: {Host: broadcastlv.chat.bilibili.com}}, udp: true}
+- {name: HK_speednode_0020, server: hkt.gotochinatown.net, port: 80, type: vmess, uuid: 93fb69fc-77cf-11ee-85ee-f23c91369f2d, alterId: 2, cipher: auto, tls: false, skip-cert-verify: true, network: ws, udp: true}
+- {name: HK_speednode_0021, server: hkt.gotochinatown.net, port: 80, type: vmess, uuid: 28a8a4d0-3e02-11eb-a8bf-f23c91cfbbc9, alterId: 2, cipher: auto, tls: false, skip-cert-verify: false, network: ws, ws-opts: {path: /, headers: {Host: hkt.gotochinatown.net}}, udp: true}
+- {name: HK_speednode_0022, server: hkt.gotochinatown.net, port: 80, type: vmess, uuid: 73bfcc1c-5814-5f2a-b43a-3ef6af011db8, alterId: 2, cipher: auto, tls: false, skip-cert-verify: false, network: ws, udp: true}
+- {name: HK_speednode_0023, server: 9c402b0d-t70f40-tfeciy-1iddy.hkt.gotochinatown.net, port: 80, type: vmess, uuid: e168c43e-c6d9-11ed-a8bf-f23c91cfbbc9, alterId: 2, cipher: auto, tls: false, skip-cert-verify: false, network: ws, ws-opts: {path: /, headers: {Host: 9c402b0d-t70f40-tfeciy-1iddy.hkt.gotochinatown.net}}, udp: true}
+- {name: HK_speednode_0024, server: hkt.gotochinatown.net, port: 80, type: vmess, uuid: 31676725-b0fd-fed2-c857-2da8ce5a6e4f, alterId: 2, cipher: auto, tls: false, skip-cert-verify: false, network: ws, ws-opts: {path: /, headers: {Host: hkt.gotochinatown.net}}, udp: true}
+- {name: HK_speednode_0025, server: hkt.gotochinatown.net, port: 80, type: vmess, uuid: 3fed19ea-1671-11f0-bd2e-f23c9164ca5d, alterId: 2, cipher: auto, tls: false, skip-cert-verify: false, network: ws, ws-opts: {path: /, headers: {Host: hkt.gotochinatown.net}}, udp: true}
+- {name: HK_speednode_0026, server: hkt.gotochinatown.net, port: 80, type: vmess, uuid: 80aa5178-f936-11ed-8ce6-f23c91369f2d, alterId: 2, cipher: auto, tls: false, skip-cert-verify: false, network: ws, ws-opts: {path: /, headers: {Host: hkt.gotochinatown.net}}, udp: true}
+- {name: HK_speednode_0027, server: hkt.gotochinatown.net, port: 80, type: vmess, uuid: 19dd9c70-e4a5-11ed-8347-f23c9164ca5d, alterId: 2, cipher: auto, tls: false, skip-cert-verify: false, network: ws, ws-opts: {path: /, headers: {Host: hkt.gotochinatown.net}}, udp: true}
+- {name: HK_speednode_0028, server: hkt.gotochinatown.net, port: 80, type: vmess, uuid: 847c03b2-0a9d-11eb-a8bf-f23c91cfbbc9, alterId: 2, cipher: auto, tls: false, skip-cert-verify: false, network: ws, ws-opts: {path: /, headers: {Host: hkt.gotochinatown.net}}, udp: true}
+- {name: HK_speednode_0029, server: hkt.gotochinatown.net, port: 80, type: vmess, uuid: 5f091cbe-fb34-11ea-9777-f23c9164ca5d, alterId: 2, cipher: auto, tls: false, skip-cert-verify: false, network: ws, ws-opts: {path: /, headers: {Host: hkt.gotochinatown.net}}, udp: true}
+- {name: HK_speednode_0030, server: 584a79d6-t9w4g0-tb5rbt-1kcpe.hkt.gotochinatown.net, port: 80, type: vmess, uuid: 3f514ea2-4662-11ed-a8bf-f23c91cfbbc9, alterId: 2, cipher: auto, tls: false, skip-cert-verify: false, network: ws, ws-opts: {path: /, headers: {Host: broadcastlv.chat.bilibili.com}}, udp: true}
+- {name: HK_speednode_0031, server: hkt.gotochinatown.net, port: 80, type: vmess, uuid: f609abb4-ed17-11ee-9fa2-f23c9164ca5d, alterId: 2, cipher: auto, tls: false, skip-cert-verify: false, network: ws, ws-opts: {path: /, headers: {Host: hkt.gotochinatown.net}}, udp: true}
+- {name: 🇭🇰 香港6|@ripaojiedian 2, server: hkt.gotochinatown.net, port: 80, type: vmess, uuid: b68f4b4c-2d02-11ec-9ee8-f23c913c8d2b, alterId: 2, cipher: auto, tls: false, skip-cert-verify: false, network: ws, ws-opts: {path: /, headers: {Host: broadcastlv.chat.bilibili.com}}}
 vmess://42bb6d36-97c7-11ee-be7f-f23c9164ca5d@3550c067-t9mv40-trftb1-1psmw.hkt.gotochinatown.net:80?encryption=&host=broadcastlv.chat.bilibili.com&path=%2F&type=ws#@HIDDIFY_plas – 3
 vmess://f860f2da-5035-11ed-bb74-f23c9164ca5d@hkt.gotochinatown.net:80?encryption=&host=hkt.gotochinatown.net&path=%2F&type=ws#@HIDDIFY_plas – 53
 vmess://aed1cc24-351d-11ef-ba52-f23c9164ca5d@hkt.gotochinatown.net:80?encryption=&host=hkt.gotochinatown.net&path=%2F&type=ws#@HIDDIFY_plas – 84
 vmess://9ad05870-d8c5-11ef-9f1c-f23c913c8d2b@da78346a-t9mv40-tart0c-g3b3.hkt.gotochinatown.net:80?encryption=&host=broadcastlv.chat.bilibili.com&path=%2F&type=ws#@HIDDIFY_plas – 99
 vmess://384d1b42-655f-11ed-a8bf-f23c91cfbbc9@e3c7f60e-t8pj40-t9b2j8-11p9g.hkt.gotochinatown.net:80?encryption=&host=e3c7f60e-t8pj40-t9b2j8-11p9g.hkt.gotochinatown.net&path=%2F&type=ws#@HIDDIFY_plas – 104
-hysteria2://7af3db60-b2d9-11ef-88ab-f23c913c8d2b@b9a88fb8-suk9s0-t7qex7-1supq.hy2.gotochinatown.net:8443?sni=b9a88fb8-suk9s0-t7qex7-1supq.hy2.gotochinatown.net&insecure=0#%F0%9F%87%BA%F0%9F%87%B8%E7%BE%8E%E5%9B%BD12%20%7C%20%E2%AC%87%EF%B8%8F%204.2MB%2Fs
+servername: hkt.gotochinatown.net
+香港精品 = vmess, hkt.gotochinatown.net, 80, username = f8c51b52-2bbb-11eb-a8bf-f23c91cfbbc9, ws = true, vmess-aead = false, tfo = false
+hy2://203d1d64-3313-11ed-bb74-f23c9164ca5d@107.167.18.102:8443?sni=0e1462f1-sum4g0-t8ro7t-1ey07.hy2.gotochinatown.net#%F0%9F%87%BA%F0%9F%87%B8%20United%20States%20-%20Los%20Angeles%20%F0%9F%8C%8E%20HY2-UDP-TLS%204%E2%83%A3%20t.me%2Frjsxrd
+hy2://203d1d64-3313-11ed-bb74-f23c9164ca5d@107.167.18.102:8443?sni=0e1462f1-sum4g0-t8ro7t-1ey07.hy2.gotochinatown.net#⭐@mshojaei77%20t.me%2Frjsxrd
+hy2://203d1d64-3313-11ed-bb74-f23c9164ca5d@107.167.18.102:8443?sni=d7b8355e-suk9s0-t8ro7t-1ey07.hy2.gotochinatown.net#%F0%9F%87%BA%F0%9F%87%B8%20United%20States%20-%20Los%20Angeles%20%F0%9F%8C%8E%20HY2-UDP-TLS%204%E2%83%A3%20t.me%2Frjsxrd
+hy2://203d1d64-3313-11ed-bb74-f23c9164ca5d@107.167.18.102:8443?sni=d7b8355e-suk9s0-t8ro7t-1ey07.hy2.gotochinatown.net#⭐@mshojaei77%20t.me%2Frjsxrd
+hysteria2://48c1e014-28d6-11ec-a0fc-f23c913c8d2b@3e8cbc42-svwf40-sw0dp4-3z3v.hy2.gotochinatown.net:8443?sni=3e8cbc42-svwf40-sw0dp4-3z3v.hy2.gotochinatown.net#%F0%9F%87%BA%F0%9F%87%B882%20%7C%20%201.3MB/s
+hysteria2://b778e4ae-1458-11ec-a8bf-f23c91cfbbc9@f4b0487a-supts0-swdlq9-g53t.hy2.gotochinatown.net:8443?insecure=0&sni=f4b0487a-supts0-swdlq9-g53t.hy2.gotochinatown.net#%F0%9F%87%BA%F0%9F%87%B888%20%7C%20%201.1MB/s
+hysteria2://9ad05870-d8c5-11ef-9f1c-f23c913c8d2b@ce8ae4b9-svn5s0-swbt02-g3b3.hy2.gotochinatown.net:8443?sni=ce8ae4b9-svn5s0-swbt02-g3b3.hy2.gotochinatown.net#%F0%9F%87%BA%F0%9F%87%B896%20%7C%20%202.4MB/s
+hysteria2://2ec58858-976b-11ea-82ef-f23c9164ca5d@6150e203-svy9s0-sx4b2t-tng5.hy2.gotochinatown.net:8443?sni=6150e203-svy9s0-sx4b2t-tng5.hy2.gotochinatown.net#%F0%9F%87%BA%F0%9F%87%B898%20%7C%20%201.3MB/s
+hysteria2://e8a960d8-14f5-11ec-a0fc-f23c913c8d2b@ed8e1d3b-sw3ts0-szt6ky-1bonh.hy2.gotochinatown.net:8443?sni=ed8e1d3b-sw3ts0-szt6ky-1bonh.hy2.gotochinatown.net#%F0%9F%87%BA%F0%9F%87%B8100%20%7C%20%201.3MB/s
+hysteria2://467f2940-77cd-11ee-b5ed-f23c9164ca5d@898602eb-svlb40-swwn15-1phla.hy2.gotochinatown.net:8443?sni=898602eb-svlb40-swwn15-1phla.hy2.gotochinatown.net#%F0%9F%87%BA%F0%9F%87%B8103%20%7C%20%203.2MB/s
+hysteria2://607d365e-7ea1-11ee-95e9-f23c913c8d2b@69ad0675-sw5og0-sx7hbg-1mmbp.hy2.gotochinatown.net:8443?sni=69ad0675-sw5og0-sx7hbg-1mmbp.hy2.gotochinatown.net#%F0%9F%87%BA%F0%9F%87%B8104%20%7C%20%202.1MB/s
+hysteria2://e3975a05-b89e-11ec-a50d-f23c91cfbbc9@d5d8af9a-svlb40-sxf56z-1f596.hy2.gotochinatown.net:8443?sni=d5d8af9a-svlb40-sxf56z-1f596.hy2.gotochinatown.net#%F0%9F%87%BA%F0%9F%87%B8105%20%7C%20%202.9MB/s
+hysteria2://4a7f880c-72f4-11ed-b0b5-f23c9164ca5d@6be32764-sw3ts0-t6ouc9-13xtu.hy2.gotochinatown.net:8443?sni=6be32764-sw3ts0-t6ouc9-13xtu.hy2.gotochinatown.net#%F0%9F%87%BA%F0%9F%87%B8108%20%7C%20%201.4MB/s
+hysteria2://607d365e-7ea1-11ee-95e9-f23c913c8d2b@ccb2a204-sw1z40-sx7hbg-1mmbp.hy2.gotochinatown.net:8443?sni=ccb2a204-sw1z40-sx7hbg-1mmbp.hy2.gotochinatown.net#%F0%9F%87%BA%F0%9F%87%B8109%20%7C%20%203.2MB/s
+hysteria2://8e0f8ef2-5fe3-11ec-a8bf-f23c91cfbbc9@1ec1d0fd-sw3ts0-swdpud-duku.hy2.gotochinatown.net:8443?sni=1ec1d0fd-sw3ts0-swdpud-duku.hy2.gotochinatown.net#%F0%9F%87%BA%F0%9F%87%B8116%20%7C%20%201.2MB/s
+hysteria2://c2b58ae0-d21c-11ef-b414-f23c91cfbbc9@638bb563-sw3ts0-swwcfg-1eijl.hy2.gotochinatown.net:8443?sni=638bb563-sw3ts0-swwcfg-1eijl.hy2.gotochinatown.net#%F0%9F%87%BA%F0%9F%87%B8119%20%7C%20%201.2MB/s
+hysteria2://6e9cdc20-b92a-11ef-973a-f23c913c8d2b@6b99ff62-svy9s0-sww7b0-1qwp5.hy2.gotochinatown.net:8443?sni=6b99ff62-svy9s0-sww7b0-1qwp5.hy2.gotochinatown.net#%F0%9F%87%BA%F0%9F%87%B8120%20%7C%20%201.4MB/s
+hysteria2://6e9cdc20-b92a-11ef-973a-f23c913c8d2b@9d5cde75-sw3ts0-sww7b0-1qwp5.hy2.gotochinatown.net:8443?sni=9d5cde75-sw3ts0-sww7b0-1qwp5.hy2.gotochinatown.net#%F0%9F%87%BA%F0%9F%87%B8121%20%7C%20%201.2MB/s
+hysteria2://1b9c460e-f026-11ef-b737-f23c91cfbbc9@2e7bc2e9-sw04g0-swsmkh-1s0a7.hy2.gotochinatown.net:8443?sni=2e7bc2e9-sw04g0-swsmkh-1s0a7.hy2.gotochinatown.net#%F0%9F%87%BA%F0%9F%87%B8122%20%7C%20%201.4MB/s
+hysteria2://93fb69fc-77cf-11ee-85ee-f23c91369f2d@a132e977-sw5og0-t12cnj-1ol97.hy2.gotochinatown.net:8443?sni=a132e977-sw5og0-t12cnj-1ol97.hy2.gotochinatown.net&insecure=0#3%7C%F0%9F%87%BA%F0%9F%87%B875%20%7C%20%201.1MB%2Fs
+hysteria2://2ec58858-976b-11ea-82ef-f23c9164ca5d@a37cd1ef-sw5og0-sx4b2t-tng5.hy2.gotochinatown.net:8443?sni=a37cd1ef-sw5og0-sx4b2t-tng5.hy2.gotochinatown.net&insecure=0#3%7C%F0%9F%87%BA%F0%9F%87%B891%20%7C%20%201.2MB%2Fs
+server: in.gotochinatown.net
+server: uk.gotochinatown.net
+server: au.gotochinatown.net
+server: de.gotochinatown.net
+"server_name": "3233ac27-swin40-sxh7iw-1ryup.hy2.gotochinatown.net",
+hysteria2://7af3db60-b2d9-11ef-88ab-f23c913c8d2b@a0ee1004-sum4g0-t7qex7-1supq.hy2.gotochinatown.net:8443?sni=a0ee1004-sum4g0-t7qex7-1supq.hy2.gotochinatown.net&insecure=1#%E7%BE%8E%E5%9B%BD8443
+"gotochinatown.net",
+server: 5804d996-t70f40-tonrmx-8n27.hkt.gotochinatown.net
+Host: 5804d996-t70f40-tonrmx-8n27.hkt.gotochinatown.net
+server: 010ece56-t6r5s0-thd0h1-1rz5s.hkt.gotochinatown.net
+Host: 010ece56-t6r5s0-thd0h1-1rz5s.hkt.gotochinatown.net
 - {"name":"_137","type":"vmess","server":"219.79.254.218","port":80,"cipher":"auto","uuid":"93fb69fc-77cf-11ee-85ee-f23c91369f2d","alterId":2,"tls":false,"skip-cert-verify":true,"servername":"","network":"ws","ws-opts":{"path":"/","headers":{"host":"hkt.gotochinatown.net"}}}
 - {"name":"_146","type":"vmess","server":"219.79.254.218","port":80,"cipher":"auto","uuid":"93fb69fc-77cf-11ee-85ee-f23c91369f2d","alterId":2,"tls":false,"skip-cert-verify":true,"servername":"","network":"ws","ws-opts":{"path":"/","headers":{"host":"hkt.gotochinatown.net"}}}
-- {"name":"🇭🇰HK-116.49.109.153-0280","type":"vmess","server":"hkt.gotochinatown.net","port":80,"cipher":"auto","uuid":"93fb69fc-77cf-11ee-85ee-f23c91369f2d","alterId":2,"tls":false,"skip-cert-verify":true,"network":"ws","ws-opts":{"path":"/","headers":{"host":"hkt.gotochinatown.net"}},"client-fingerprint":"chrome"}
-gotochinatown.net
-vmess://93fb69fc-77cf-11ee-85ee-f23c91369f2d@hkt.gotochinatown.net:80?type=none&host=hkt.gotochinatown.net&path=%2F#%40dimensionconnex.github.io%20%E9%A6%99%E6%B8%AF 015
-server: a97f4a24-t9w4g0-tn57fp-5ifr.hkt.gotochinatown.net
-server: c31c955e-t63340-tao3bn-ggww.hkt.gotochinatown.net
-headers: { Host: c31c955e-t63340-tao3bn-ggww.hkt.gotochinatown.net }
-server: 5545a4de-t8lts0-tasors-1tdqt.hkt.gotochinatown.net
-servername: 5545a4de-t8lts0-tasors-1tdqt.hkt.gotochinatown.net
-headers: { Host: 5545a4de-t8lts0-tasors-1tdqt.hkt.gotochinatown.net }
-server: 92c73b3e-t9w4g0-thd0h1-1rz5s.hkt.gotochinatown.net
-server: 51f142c0-t9w4g0-tart0c-g3b3.hkt.gotochinatown.net
-server: c3d192c0-t9w4g0-tb5nzx-1mqag.hkt.gotochinatown.net
-server: 967d835d-t9w4g0-tysu9z-1nq4g.hkt.gotochinatown.net
-server: dd1b8960-t70f40-t7fz1r-8rja.hkt.gotochinatown.net
-headers: { Host: dd1b8960-t70f40-t7fz1r-8rja.hkt.gotochinatown.net }
-server: c64f936b-t8rds0-tcuz7t-1ta58.hkt.gotochinatown.net
-server: e542f5ac-t8pj40-td95qh-1isea.hkt.gotochinatown.net
-headers: { Host: 5804d996-t70f40-tonrmx-8n27.hkt.gotochinatown.net }
-headers: { Host: 010ece56-t6r5s0-thd0h1-1rz5s.hkt.gotochinatown.net }
-servername: hkt.gotochinatown.net
-headers: { Host: hkt.gotochinatown.net }
-server: 4dbbf66c-t70f40-tifnix-1ro8s.hkt.gotochinatown.net
-servername: 4dbbf66c-t70f40-tifnix-1ro8s.hkt.gotochinatown.net
-headers: { HOST: 4dbbf66c-t70f40-tifnix-1ro8s.hkt.gotochinatown.net }
-server: 95930bfa-t70f40-t83bw1-1f596.hkt.gotochinatown.net
-server: 2be20245-t70f40-t82luq-mv7m.hkt.gotochinatown.net
-server: 87af7d1a-t8nog0-t9hghw-1sdoq.hkt.gotochinatown.net
-server: d2965172-t8rds0-tpn98f-1rcxl.hkt.gotochinatown.net
-headers: { HOST: hkt.gotochinatown.net }
-server: 7c733709-t70f40-tcw58g-1p0be.hkt.gotochinatown.net
-server: 4599746a-t8rds0-tbnk1n-ueq.hkt.gotochinatown.net
-server: 168ec8b9-t70f40-tiqsce-t6fv.hkt.gotochinatown.net
-servername: 168ec8b9-t70f40-tiqsce-t6fv.hkt.gotochinatown.net
-server: 65ba78b3-t8wxs0-tbnlwl-1qaek.hkt.gotochinatown.net
-server: 2ce6219a-t6r5s0-tiaexf-ufc0.hkt.gotochinatown.net
-headers: { Host: 2ce6219a-t6r5s0-tiaexf-ufc0.hkt.gotochinatown.net }
-server: c558c52a-t6r5s0-tc61cs-1tja8.hkt.gotochinatown.net
-servername: c558c52a-t6r5s0-tc61cs-1tja8.hkt.gotochinatown.net
-headers: { HOST: c558c52a-t6r5s0-tc61cs-1tja8.hkt.gotochinatown.net }
-server: e6c543b9-t8pj40-tan99f-1rdqg.hkt.gotochinatown.net
-server: 0bba3742-t8nog0-tlvq5w-1jcwu.hkt.gotochinatown.net
-server: 3b26251a-t8wxs0-ta2rg6-amya.hkt.gotochinatown.net
-server: 448072be-t6r5s0-taksay-1tcuf.hkt.gotochinatown.net
-servername: 448072be-t6r5s0-taksay-1tcuf.hkt.gotochinatown.net
-headers: { HOST: 448072be-t6r5s0-taksay-1tcuf.hkt.gotochinatown.net }
-server: be1ca0db-t8pj40-tbnlwl-1qaek.hkt.gotochinatown.net
-server: ccbe1adb-t8wxs0-tl09la-1q91p.hkt.gotochinatown.net
-server: 347adbbc-t70f40-tbicd9-1go3q.hkt.gotochinatown.net
-servername: 2ce6219a-t6r5s0-tiaexf-ufc0.hkt.gotochinatown.net
-headers: { HOST: 2ce6219a-t6r5s0-tiaexf-ufc0.hkt.gotochinatown.net }
-server: 887d2112-t8pj40-tcdlur-1qwom.hkt.gotochinatown.net
-server: 51de63bc-t8lts0-t99b5n-1hhyy.hkt.gotochinatown.net
-server: 2a8b036d-t6r5s0-t7enwo-1f1f1.hkt.gotochinatown.net
-server: 44a1b64f-t77ts0-tb592v-4lg6.hkt.gotochinatown.net
-headers: { Host: 44a1b64f-t77ts0-tb592v-4lg6.hkt.gotochinatown.net }
-server: e66ecabe-t7h340-tq9o8d-1d3bw.hkt.gotochinatown.net
-server: 42e09198-t8pj40-tdadcv-1hd7v.hkt.gotochinatown.net
-server: 822d4c12-t70f40-tgzvop-hns7.hkt.gotochinatown.net
-server: 09a4d4c8-t6r5s0-tcmtfl-1qudp.hkt.gotochinatown.net
-server: 84146e14-t6r5s0-tiuovf-v3c2.hkt.gotochinatown.net
-servername: 84146e14-t6r5s0-tiuovf-v3c2.hkt.gotochinatown.net
-headers: { HOST: 84146e14-t6r5s0-tiuovf-v3c2.hkt.gotochinatown.net }
-server: bf85780f-t8lts0-td95qh-1isea.hkt.gotochinatown.net
-server: 16e189b9-t70f40-td1l1t-1s824.hkt.gotochinatown.net
-server: f8d6a0ad-t6r5s0-t8hh31-amya.hkt.gotochinatown.net
-servername: f8d6a0ad-t6r5s0-t8hh31-amya.hkt.gotochinatown.net
-server: 320ede8b-t70f40-tfi5fd-1imi4.hkt.gotochinatown.net
-server: 3ef1531d-t70f40-t6z0et-1t60o.hkt.gotochinatown.net
-server: 1eca9439-t6r5s0-taklwz-12bd.hkt.gotochinatown.net
-servername: 1eca9439-t6r5s0-taklwz-12bd.hkt.gotochinatown.net
-server: c7e6deaa-t6r5s0-tm23vf-1jk6u.hkt.gotochinatown.net
-servername: c7e6deaa-t6r5s0-tm23vf-1jk6u.hkt.gotochinatown.net
-server: f8c38428-t6r5s0-t8jzg2-1hd7v.hkt.gotochinatown.net
-server: d07f2c0a-t8pj40-t8xdsu-nx3b.hkt.gotochinatown.net
-server: bcc4c365-t70f40-tpaqgu-1smhu.hkt.gotochinatown.net
-server: a92636eb-t6r5s0-tbac1z-1j3zm.hkt.gotochinatown.net
-server: 545c50c6-t70f40-thiwul-1gcq2.hkt.gotochinatown.net
-server: 0a772ea7-t8pj40-tdps9l-155d9.hkt.gotochinatown.net
