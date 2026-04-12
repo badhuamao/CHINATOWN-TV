@@ -4,16 +4,9 @@ import os
 import base64
 
 # --- 配置区 ---
+# 关键字直接设为新域名
 SEARCH_QUERY = 'gotochinatown.net'
 TOKEN = os.getenv("MY_GITHUB_TOKEN")
-
-# 初始四大老巢
-TARGET_URLS = [
-    "https://raw.githubusercontent.com/igareck/vpn-configs-for-russia/main/BLACK_SS%2BAll_RUS.txt",
-    "https://raw.githubusercontent.com/shaoyouvip/free/main/all.yaml",
-    "https://raw.githubusercontent.com/ssrsub/ssr/master/singbox.json",
-    "https://raw.githubusercontent.com/Whoahaow/rjsxrd/main/githubmirror/default/24.txt"
-]
 
 def search_github():
     if not TOKEN: return []
@@ -30,64 +23,46 @@ def search_github():
     return found_urls
 
 def harvest():
-    final_nodes = []
-    seen_uids = set()
-    name_counts = {}
+    raw_results = []
+    seen_content = set()
     headers = {'User-Agent': 'Mozilla/5.0'}
-    all_sources = list(set(TARGET_URLS + search_github()))
     
+    # 获取全站搜索到的所有源链接
+    all_sources = search_github()
+    print(f"📡 搜索到 {len(all_sources)} 个潜在源码文件...")
+
     for url in all_sources:
         try:
             resp = requests.get(url, headers=headers, timeout=10)
             if resp.status_code != 200: continue
             content = resp.text.strip()
             
-            # Base64 自动识别
+            # Base64 自动解码（为了看到里面的真面目）
             if len(content) > 30 and ' ' not in content and '\n' not in content:
                 try:
                     content = base64.b64decode(content + '=' * (-len(content) % 4)).decode('utf-8')
                 except: pass
 
-            # 模式 1：直连提取 (锁定 gotochinatown.net)
-            links = re.findall(r"(\w+)://([^@]+)@([\w\d\.-]+?\.gotochinatown\.net):(\d+)", content, re.I)
-            for proto, pwd, host, port in links:
-                save_node(host, port, pwd, final_nodes, seen_uids, name_counts)
-            
-            # 模式 2：块提取
-            blocks = re.split(r'-\s+name:|{', content)
-            for block in blocks:
-                if "gotochinatown.net" in block:
-                    h = re.search(r"([\w\d\.-]+?\.gotochinatown\.net)", block)
-                    p = re.search(r"(?:port|server_port)[:\"\s]+(\d+)", block)
-                    pw = re.search(r"(?:password|auth_str|auth|auth-str)[:\"\s]+['\"]?([^'\"\s,{}]+)['\"]?", block)
-                    if h and p:
-                        save_node(h.group(1), p.group(1), pw.group(1) if pw else "test.+", final_nodes, seen_uids, name_counts)
+            # 【核心逻辑】：只要这一行包含域名，我们就把这一行完整拿走
+            # 这种方式最粗暴，也最不容易漏掉节点
+            lines = content.split('\n')
+            for line in lines:
+                clean_line = line.strip()
+                if "gotochinatown.net" in clean_line:
+                    # 去重，防止同一个节点反复刷屏
+                    if clean_line not in seen_content:
+                        raw_results.append(clean_line)
+                        seen_content.add(clean_line)
         except: continue
-    return final_nodes
-
-def save_node(host, port, pwd, final_nodes, seen_uids, name_counts):
-    pwd = pwd.strip().strip("'").strip('"').split(',')[0]
-    uid = f"{host}:{port}:{pwd}"
-    if uid not in seen_uids:
-        # 加个 CT 前缀，电视上好分辨
-        base_name = "CT-" + host.split('.')[0]
-        name_counts[base_name] = name_counts.get(base_name, 0) + 1
-        display_name = f"{base_name}_{name_counts[base_name]}"
-        node = {"name": display_name, "server": host, "port": port, "password": pwd}
-        final_nodes.append(node)
-        seen_uids.add(uid)
+    return raw_results
 
 if __name__ == "__main__":
     nodes = harvest()
-    yaml_lines = ["port: 7890", "socks-port: 7891", "allow-lan: true", "mode: rule", "proxies:"]
-    for n in nodes:
-        yaml_lines.append(f"  - {{name: '{n['name']}', server: {n['server']}, port: {n['port']}, type: hysteria2, password: '{n['password']}', sni: {n['server']}, skip-cert-verify: true}}")
     
-    yaml_lines.append("\nproxy-groups:\n  - name: 📺 电视自动故障转移\n    type: fallback\n    url: 'http://www.gstatic.com/generate_204'\n    interval: 300\n    proxies:")
-    for n in nodes: yaml_lines.append(f"      - '{n['name']}'")
-    
-    yaml_lines.append("\nrules:\n  - GEOIP,CN,DIRECT\n  - MATCH,📺 电视自动故障转移")
-
-    with open("proxies.yaml", "w", encoding="utf-8") as f:
-        f.write("\n".join(yaml_lines))
-    print(f"✅ 收割完成，共斩获 {len(nodes)} 个新域名节点。")
+    # 咱们不写 YAML 了，直接写个纯文本文件
+    with open("all_nodes.txt", "w", encoding="utf-8") as f:
+        for n in nodes:
+            f.write(n + "\n")
+            
+    print(f"✅ 任务完成！共扫出 {len(nodes)} 行包含目标的原始数据。")
+    print("📁 结果已存入 all_nodes.txt")
