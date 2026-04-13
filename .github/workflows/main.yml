@@ -1,35 +1,32 @@
-name: "全自动硬核转换"
+name: "精简版节点转换"
 
 on:
+  workflow_dispatch: # 支持手动点击运行
   schedule:
-    - cron: '0 */6 * * *'
-  push:
-    paths:
-      - 'urls.txt'
-  workflow_dispatch:
+    - cron: '0 */6 * * *' # 每6小时跑一次
 
 jobs:
-  convert:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - name: "1. 检出仓库"
+      - name: Checkout
         uses: actions/checkout@v3
 
-      - name: "2. 调用全能转换接口"
-        run: |
-          # 读取你的 urls.txt，把多行链接合并成一个用 | 分隔的字符串
-          URL_LIST=$(cat urls.txt | tr '\n' '|' | sed 's/|$//')
-          
-          # 直接请求目前最稳的转换后端 (ACL4SSR 提供)
-          # target=clash: 转成 Clash 格式
-          # url: 你的那些订阅源
-          # insert=false: 不插入对方的自带规则，保持纯净
-          curl -L "https://api.wcc.best/sub?target=clash&url=${URL_LIST}&insert=false" -o clash.yaml
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
 
-      - name: "3. 强制推送成果"
+      - name: Install PyYAML
+        run: pip install requests PyYAML
+
+      - name: Run Script
+        run: python main.py
+
+      - name: Push Result
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add clash.yaml
-          git commit -m "内核级同步: $(date +'%Y-%m-%d %H:%M')" || exit 0
+          git commit -m "Update nodes: $(date)" || exit 0
           git push
