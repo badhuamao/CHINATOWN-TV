@@ -1,4 +1,4 @@
-name: "最后一次尝试-暴力提取"
+name: "最后一次信任-暴力提取版"
 
 on:
   workflow_dispatch:
@@ -7,38 +7,42 @@ on:
       - '.github/workflows/**'
 
 jobs:
-  build:
+  convert-job:
     runs-on: ubuntu-latest
     permissions:
       contents: write
     steps:
-      - uses: actions/checkout@v3
+      - name: "1. 检出仓库"
+        uses: actions/checkout@v3
 
-      - name: "强行提取节点"
+      - name: "2. 强力抓取并提取"
         run: |
-          # 1. 抓取原始文件内容
-          curl -sL "https://raw.githubusercontent.com/Supprise0901/Fetch/refs/heads/main/Superspeed.yaml" > raw_data.txt
+          # 下载你指定的那个源文件
+          curl -sL "https://raw.githubusercontent.com/Supprise0901/Fetch/refs/heads/main/Superspeed.yaml" > raw.txt
           
-          # 2. 构造 Clash 头部
+          # 手动构建 Clash 头部
           echo "proxies:" > clash.yaml
           
-          # 3. 暴力提取：把所有包含 server, port, password, type 的行全抠出来
-          # 这种办法不管它是 YAML 还是文本，只要有关键字就能抓到
-          grep -E "name:|type:|server:|port:|password:|sni:|ssl:|skip-cert-verify:" raw_data.txt >> clash.yaml
+          # 关键一步：从 raw.txt 里只抓取 proxies 列表下面的节点内容
+          # 我们不解析 YAML，我们只把包含关键参数的行抠出来
+          grep -E "  - {name:|    name:|    type:|    server:|    port:|    password:|    sni:|    ssl:|    skip-cert-verify:" raw.txt >> clash.yaml
           
-          # 4. 补全策略组 (这部分是固定的)
+          # 补全电视端必须的策略组 (解决不可用问题)
           echo "proxy-groups:" >> clash.yaml
           echo "  - name: 🚀 自动选择" >> clash.yaml
           echo "    type: url-test" >> clash.yaml
-          echo "    proxies: [自动抓取节点]" >> clash.yaml
+          echo "    proxies:" >> clash.yaml
+          # 自动抓取刚才提取的所有节点名称
+          grep "name:" clash.yaml | sed 's/.*name: //g' | sed 's/["'\'']//g' | sed 's/^/      - /' >> clash.yaml
           echo "    url: http://www.gstatic.com/generate_204" >> clash.yaml
           echo "    interval: 300" >> clash.yaml
-          echo "rules: [MATCH,🚀 自动选择]" >> clash.yaml
+          echo "rules:" >> clash.yaml
+          echo "  - MATCH,🚀 自动选择" >> clash.yaml
 
-      - name: "提交并起飞"
+      - name: "3. 强制推送"
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add clash.yaml
-          git commit -m "暴力同步: $(date)" || exit 0
+          git commit -m "暴力同步成功: $(date)" || exit 0
           git push
