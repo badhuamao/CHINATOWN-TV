@@ -1,38 +1,35 @@
-name: "自动收割与混合转换"
+name: "全自动硬核转换"
 
 on:
   schedule:
-    - cron: '0 */6 * * *' # 每6小时全自动收割一次
+    - cron: '0 */6 * * *'
   push:
     paths:
-      - 'urls.txt'      # 只要你改了手动列表，立即触发转换
-  workflow_dispatch:    # 保留手动按钮，想跑随时点
+      - 'urls.txt'
+  workflow_dispatch:
 
 jobs:
-  harvest_and_convert:
+  convert:
     runs-on: ubuntu-latest
     steps:
-      - name: "1. 拉取仓库代码"
+      - name: "1. 检出仓库"
         uses: actions/checkout@v3
 
-      - name: "2. 安装 Python 环境"
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.9'
+      - name: "2. 调用全能转换接口"
+        run: |
+          # 读取你的 urls.txt，把多行链接合并成一个用 | 分隔的字符串
+          URL_LIST=$(cat urls.txt | tr '\n' '|' | sed 's/|$//')
+          
+          # 直接请求目前最稳的转换后端 (ACL4SSR 提供)
+          # target=clash: 转成 Clash 格式
+          # url: 你的那些订阅源
+          # insert=false: 不插入对方的自带规则，保持纯净
+          curl -L "https://api.wcc.best/sub?target=clash&url=${URL_LIST}&insert=false" -o clash.yaml
 
-      - name: "3. 安装必要插件"
-        run: pip install requests PyYAML
-
-      - name: "4. 执行炼金脚本"
-        env:
-          MY_GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
-        run: python main.py
-
-      - name: "5. 将成果推送到仓库"
+      - name: "3. 强制推送成果"
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           git add clash.yaml
-          # 如果文件没变化就跳过，防止报错
-          git commit -m "自动更新节点: $(date +'%Y-%m-%d %H:%M')" || exit 0
+          git commit -m "内核级同步: $(date +'%Y-%m-%d %H:%M')" || exit 0
           git push
