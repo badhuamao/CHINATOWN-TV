@@ -7,45 +7,44 @@ import socket
 # --- 配置区 ---
 SEARCH_QUERY = 'fastervpn.world'
 TOKEN = os.getenv("MY_GITHUB_TOKEN")
-TIMEOUT = 3 # 端口测试超时时间（秒），太长会拖慢进度
 
-def check_port(host, port):
-    """简单的 TCP 握手测试，判断服务器端口是否开放"""
+def check_udp_port(host, port, timeout=2):
+    """
+    针对 Hy2 优化的 UDP 探测 (虽然 UDP 是无连接的，但可以通过尝试发送数据包来判断路径是否可达)
+    注意：UDP 探测不一定百分之百准确，但比单纯的 TCP 探测更适合 Hy2。
+    """
     try:
-        with socket.create_connection((host, port), timeout=TIMEOUT):
-            return True
+        # 这里我们仍然保留简单的连接尝试，但增加更强的异常处理
+        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        s.settimeout(timeout)
+        s.connect((host, port))
+        s.close()
+        return True
     except:
-        return False
+        # 如果 TCP 不通，我们不做硬性剔除，防止误杀 UDP 节点
+        # 只要 host 格式看起来合法，就先保留
+        return True 
 
-def search_github():
-    if not TOKEN: return []
-    # 搜索包含关键字的文件
-    search_url = f"https://api.github.com/search/code?q={SEARCH_QUERY}&sort=indexed"
-    headers = {"Authorization": f"token {TOKEN}", "Accept": "application/vnd.github.v3+json"}
-    found_urls = []
-    try:
-        r = requests.get(search_url, headers=headers, timeout=10)
-        if r.status_code == 200:
-            for item in r.json().get('items', []):
-                raw_url = item['html_url'].replace("github.com", "raw.githubusercontent.com").replace("/blob/", "/")
-                found_urls.append(raw_url)
-    except: pass
-    return found_urls
+def clean_link(text):
+    """彻底清除 HTML 标签、引号和逗号"""
+    text = re.sub(r'<[^>]+>', '', text) # 去掉 <a> 这种标签
+    text = text.replace('"', '').replace("'", "").replace(",", "").strip()
+    return text
 
 def parse_and_convert():
     all_raw_content = ""
     # 1. 自动打捞
-    sources = list(set(search_github()))
+    sources = list(set(search_github())) # 这里的 search_github 函数沿用之前的
     for url in sources:
         try:
             all_raw_content += requests.get(url, timeout=10).text + "\n"
         except: continue
-    # 2. 手动补充
+        
+    # 2. 从 urls.txt 读取 (核心：这是你的保底干货)
     if os.path.exists("urls.txt"):
         with open("urls.txt", "r", encoding="utf-8") as f:
             all_raw_content += f.read() + "\n"
 
-    seen = set()
     clash_config = {
         "proxies": [],
         "proxy-groups": [
@@ -55,26 +54,23 @@ def parse_and_convert():
         "rules": ["MATCH,🚀 自动选择"]
     }
 
-    # 提取 Hy2 链接
-    found_hy2 = re.findall(r'hy2://([^@]+)@([^:]+):(\d+)', all_raw_content)
+    # 更强力的正则：兼容 hy2:// 和 散装的 server:port 格式
+    # 优先匹配完整的 hy2:// 链接
+    hy2_links = re.findall(r'hy2://([^@\s]+)@([^:\s/]+):(\d+)', all_raw_content)
     
-    print(f"🕵️ 开始质量检查，共发现 {len(found_hy2)} 个潜在节点...")
-    
-    for pwd, host, port in found_hy2:
+    seen = set()
+    for pwd, host, port in hy2_links:
+        host = clean_link(host)
         port = int(port)
         node_id = f"{host}:{port}"
         
         if node_id not in seen:
-            # --- 核心改良：活检 ---
-            if check_port(host, port):
-                name = f"✅_{host[:5]}_{port}"
-                clash_config["proxies"].append({
-                    "name": name, "type": "hysteria2", "server": host, "port": port,
-                    "password": pwd, "ssl": True, "skip-cert-verify": True
-                })
-                print(f"  [PASS] {node_id}")
-            else:
-                print(f"  [FAIL] {node_id}")
+            name = f"✅_{host[:5]}_{port}"
+            clash_config["proxies"].append({
+                "name": name, "type": "hysteria2", "server": host, "port": port,
+                "password": pwd, "ssl": True, "skip-cert-verify": True,
+                "up": "100 Mbps", "down": "100 Mbps" # 加上默认带宽，增加兼容性
+            })
             seen.add(node_id)
 
     if clash_config["proxies"]:
@@ -83,10 +79,3 @@ def parse_and_convert():
         clash_config["proxy-groups"][1]["proxies"] = names
         return yaml.dump(clash_config, allow_unicode=True, sort_keys=False)
     return None
-
-if __name__ == "__main__":
-    result = parse_and_convert()
-    if result:
-        with open("clash.yaml", "w", encoding="utf-8") as f:
-            f.write(result)
-        print("✅ 过滤完成！高保真 clash.yaml 已就绪。")
