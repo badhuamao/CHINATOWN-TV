@@ -1,34 +1,38 @@
-name: Node Harvester
+name: "自动收割与混合转换"
 
 on:
-  workflow_dispatch:
   schedule:
-    - cron: '0 0,12 * * *'
+    - cron: '0 */6 * * *' # 每6小时全自动收割一次
+  push:
+    paths:
+      - 'urls.txt'      # 只要你改了手动列表，立即触发转换
+  workflow_dispatch:    # 保留手动按钮，想跑随时点
 
 jobs:
-  build:
+  harvest_and_convert:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - name: "1. 拉取仓库代码"
         uses: actions/checkout@v3
 
-      - name: Set up Python
+      - name: "2. 安装 Python 环境"
         uses: actions/setup-python@v4
         with:
           python-version: '3.9'
 
-      - name: Install dependencies
-        run: pip install requests
+      - name: "3. 安装必要插件"
+        run: pip install requests PyYAML
 
-      - name: Run harvest
+      - name: "4. 执行炼金脚本"
         env:
           MY_GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
         run: python main.py
 
-      - name: Commit and push
+      - name: "5. 将成果推送到仓库"
         run: |
-          git config --local user.email "actions@github.com"
-          git config --local user.name "actions-user"
-          git add all_nodes.txt
-          git commit -m "Raw harvest: $(date +'%Y-%m-%d %H:%M')" || exit 0
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add clash.yaml
+          # 如果文件没变化就跳过，防止报错
+          git commit -m "自动更新节点: $(date +'%Y-%m-%d %H:%M')" || exit 0
           git push
