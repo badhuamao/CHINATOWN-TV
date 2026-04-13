@@ -1,35 +1,44 @@
-name: "单链接专项转换"
+name: "最后一次尝试-暴力提取"
 
 on:
   workflow_dispatch:
   push:
     paths:
-      - 'main.py'
+      - '.github/workflows/**'
 
 jobs:
-  run-convert:
+  build:
     runs-on: ubuntu-latest
     permissions:
-      contents: write # 必须赋予写入权限
+      contents: write
     steps:
       - uses: actions/checkout@v3
 
-      - name: Setup Python
-        uses: actions/setup-python@v4
-        with:
-          python-version: '3.9'
+      - name: "强行提取节点"
+        run: |
+          # 1. 抓取原始文件内容
+          curl -sL "https://raw.githubusercontent.com/Supprise0901/Fetch/refs/heads/main/Superspeed.yaml" > raw_data.txt
+          
+          # 2. 构造 Clash 头部
+          echo "proxies:" > clash.yaml
+          
+          # 3. 暴力提取：把所有包含 server, port, password, type 的行全抠出来
+          # 这种办法不管它是 YAML 还是文本，只要有关键字就能抓到
+          grep -E "name:|type:|server:|port:|password:|sni:|ssl:|skip-cert-verify:" raw_data.txt >> clash.yaml
+          
+          # 4. 补全策略组 (这部分是固定的)
+          echo "proxy-groups:" >> clash.yaml
+          echo "  - name: 🚀 自动选择" >> clash.yaml
+          echo "    type: url-test" >> clash.yaml
+          echo "    proxies: [自动抓取节点]" >> clash.yaml
+          echo "    url: http://www.gstatic.com/generate_204" >> clash.yaml
+          echo "    interval: 300" >> clash.yaml
+          echo "rules: [MATCH,🚀 自动选择]" >> clash.yaml
 
-      - name: Install PyYAML
-        run: pip install requests PyYAML
-
-      - name: Execute Script
-        run: python main.py
-
-      - name: Commit and Push
+      - name: "提交并起飞"
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          # 强制添加，即使文件没有变化也会尝试检查
           git add clash.yaml
-          git commit -m "Auto Update: $(date)" || echo "No changes to commit"
+          git commit -m "暴力同步: $(date)" || exit 0
           git push
