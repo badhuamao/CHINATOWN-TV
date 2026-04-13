@@ -1,17 +1,14 @@
 import requests
 import re
 import os
-import base64
+import yaml
 
 # --- 配置区 ---
-SEARCH_QUERY = 'dafei.de' # 已经更新为新地盘
+SEARCH_QUERY = 'fastervpn.world'
 TOKEN = os.getenv("MY_GITHUB_TOKEN")
 
 def search_github():
-    if not TOKEN: 
-        print("⚠️ 没找到 TOKEN，搜索功能将失效。")
-        return []
-    # 扩大搜索范围，针对新域名进行全量检索
+    if not TOKEN: return []
     search_url = f"https://api.github.com/search/code?q={SEARCH_QUERY}&sort=indexed"
     headers = {"Authorization": f"token {TOKEN}", "Accept": "application/vnd.github.v3+json"}
     found_urls = []
@@ -19,55 +16,61 @@ def search_github():
         r = requests.get(search_url, headers=headers, timeout=10)
         if r.status_code == 200:
             for item in r.json().get('items', []):
-                # 转换成 raw 链接直接读内容
                 raw_url = item['html_url'].replace("github.com", "raw.githubusercontent.com").replace("/blob/", "/")
                 found_urls.append(raw_url)
-        else:
-            print(f"❌ 搜索请求失败，状态码: {r.status_code}")
     except: pass
     return found_urls
 
-def harvest():
-    raw_results = []
-    seen_lines = set() # 统一使用这个变量记录重复行
-    headers = {'User-Agent': 'Mozilla/5.0'}
+def parse_and_convert():
+    all_raw_content = ""
     
-    # 获取搜索到的 raw 链接并去重
-    all_sources = list(set(search_github()))
-    print(f"📡 正在新矿区 ({SEARCH_QUERY}) 打捞，来源总数: {len(all_sources)}")
-
-    for url in all_sources:
+    # 1. 从 GitHub 自动化打捞内容
+    sources = list(set(search_github()))
+    for url in sources:
         try:
-            resp = requests.get(url, headers=headers, timeout=10)
-            if resp.status_code != 200: continue
-            
-            content = resp.text
-            # 自动处理可能存在的 Base64 订阅格式
-            if len(content.strip()) > 30 and ' ' not in content.strip() and '\n' not in content.strip():
-                try:
-                    # 补齐 base64 等号并解码
-                    content = base64.b64decode(content.strip() + '=' * (-len(content.strip()) % 4)).decode('utf-8', errors='ignore')
-                except: pass
-
-            # 【核心策略：整行提取】
-            lines = content.split('\n')
-            for line in lines:
-                # 关键修改：判断条件改为搜索关键词
-                if SEARCH_QUERY in line:
-                    clean_line = line.strip()
-                    # 只要包含域名且不重复，就抓走
-                    if clean_line and clean_line not in seen_lines:
-                        raw_results.append(clean_line)
-                        seen_lines.add(clean_line) # 已修正变量名
+            all_raw_content += requests.get(url, timeout=10).text + "\n"
         except: continue
-    return raw_results
+    
+    # 2. 从你手动维护的 urls.txt 读取内容 (核心新增)
+    if os.path.exists("urls.txt"):
+        with open("urls.txt", "r", encoding="utf-8") as f:
+            all_raw_content += f.read() + "\n"
+
+    # --- 开始转换逻辑 ---
+    seen = set()
+    clash_config = {
+        "proxies": [],
+        "proxy-groups": [
+            {"name": "🚀 自动选择", "type": "url-test", "proxies": [], "url": "http://www.gstatic.com/generate_204", "interval": 300},
+            {"name": "🔰 全部节点", "type": "select", "proxies": []}
+        ],
+        "rules": ["MATCH,🚀 自动选择"]
+    }
+
+    # 提取所有 Hy2 链接
+    found_hy2 = re.findall(r'hy2://[^\s\'"<>]+', all_raw_content)
+    for link in found_hy2:
+        if link not in seen:
+            match = re.match(r'hy2://([^@]+)@([^:]+):(\d+)', link)
+            if match:
+                pwd, host, port = match.groups()
+                name = f"🚀_{host[:5]}_{port}"
+                clash_config["proxies"].append({
+                    "name": name, "type": "hysteria2", "server": host, "port": int(port),
+                    "password": pwd, "ssl": True, "skip-cert-verify": True
+                })
+                seen.add(link)
+
+    if clash_config["proxies"]:
+        names = [p["name"] for p in clash_config["proxies"]]
+        clash_config["proxy-groups"][0]["proxies"] = names
+        clash_config["proxy-groups"][1]["proxies"] = names
+        return yaml.dump(clash_config, allow_unicode=True, sort_keys=False)
+    return None
 
 if __name__ == "__main__":
-    results = harvest()
-    
-    # 输出到 all_nodes.txt
-    with open("all_nodes.txt", "w", encoding="utf-8") as f:
-        for r in results:
-            f.write(r + "\n")
-            
-    print(f"✅ 新矿区收割完成！共抓获 {len(results)} 条原始行。")
+    result = parse_and_convert()
+    if result:
+        with open("clash.yaml", "w", encoding="utf-8") as f:
+            f.write(result)
+        print("✅ 混合转换成功！")
