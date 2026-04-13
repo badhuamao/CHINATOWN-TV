@@ -1,16 +1,18 @@
-name: "精简版节点转换"
+name: "单链接专项转换"
 
 on:
-  workflow_dispatch: # 支持手动点击运行
-  schedule:
-    - cron: '0 */6 * * *' # 每6小时跑一次
+  workflow_dispatch:
+  push:
+    paths:
+      - 'main.py'
 
 jobs:
-  build:
+  run-convert:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write # 必须赋予写入权限
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
       - name: Setup Python
         uses: actions/setup-python@v4
@@ -20,13 +22,14 @@ jobs:
       - name: Install PyYAML
         run: pip install requests PyYAML
 
-      - name: Run Script
+      - name: Execute Script
         run: python main.py
 
-      - name: Push Result
+      - name: Commit and Push
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
+          # 强制添加，即使文件没有变化也会尝试检查
           git add clash.yaml
-          git commit -m "Update nodes: $(date)" || exit 0
+          git commit -m "Auto Update: $(date)" || echo "No changes to commit"
           git push
