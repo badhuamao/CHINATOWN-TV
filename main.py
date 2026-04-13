@@ -1,27 +1,49 @@
 import requests
 import yaml
+import re
 
-# 你的目标 Raw 链接
+# 目标 Raw 链接
 TARGET_URL = "https://raw.githubusercontent.com/Supprise0901/Fetch/refs/heads/main/Superspeed.yaml"
 
 def convert():
     try:
-        print(f"正在获取节点: {TARGET_URL}")
+        print(f"📡 正在尝试获取: {TARGET_URL}")
         resp = requests.get(TARGET_URL, timeout=15)
         if resp.status_code != 200:
-            print("下载失败，请检查网络或链接")
+            print("❌ 访问失败，请检查网络链接")
             return
         
-        # 解析原始 YAML
-        raw_data = yaml.safe_load(resp.text)
-        if not raw_data or 'proxies' not in raw_data:
-            print("原始文件中没有找到 proxies 节点")
+        content = resp.text
+        proxies = []
+
+        # 尝试逻辑 A: 如果它本身就是 YAML 格式
+        try:
+            raw_data = yaml.safe_load(content)
+            if isinstance(raw_data, dict) and 'proxies' in raw_data:
+                proxies = raw_data['proxies']
+        except:
+            pass
+
+        # 尝试逻辑 B: 如果 A 失败了，强行正则匹配里面的 hy2:// 链接
+        if not proxies:
+            hy2_links = re.findall(r'hy2://([^@\s]+)@([^:\s/]+):(\d+)', content)
+            for pwd, host, port in hy2_links:
+                proxies.append({
+                    "name": f"🚀_{host[:5]}_{port}",
+                    "type": "hysteria2",
+                    "server": host,
+                    "port": int(port),
+                    "password": pwd,
+                    "ssl": True,
+                    "skip-cert-verify": True
+                })
+
+        if not proxies:
+            print("❌ 节点提取失败，文件中似乎没有有效节点数据")
             return
 
-        # 重新封装成标准 Clash 订阅格式
-        proxies = raw_data['proxies']
+        # 重新封装成电视 Clash 标准格式
         names = [p['name'] for p in proxies]
-        
         clash_config = {
             "proxies": proxies,
             "proxy-groups": [
@@ -33,10 +55,10 @@ def convert():
 
         with open("clash.yaml", "w", encoding="utf-8") as f:
             yaml.dump(clash_config, f, allow_unicode=True, sort_keys=False)
-        print(f"✅ 转换成功！共提取 {len(proxies)} 个节点")
+        print(f"✅ 转换成功！共生成 {len(proxies)} 个节点")
 
     except Exception as e:
-        print(f"发生错误: {e}")
+        print(f"❌ 运行报错: {e}")
 
 if __name__ == "__main__":
     convert()
