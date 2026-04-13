@@ -1,63 +1,73 @@
 import requests
-import yaml
+import re
 import os
+import yaml
 
-def fetch_and_extract_nodes(url):
-    """
-    专门对付这种 .yaml 结尾的链接，把里面的节点强行剥离出来
-    """
-    extracted_proxies = []
+# --- 核心提取逻辑 ---
+def fetch_nodes_from_anywhere(line):
+    line = line.strip()
+    if not line: return []
+    proxies = []
+    headers = {'User-Agent': 'Mozilla/5.0'}
+    
     try:
-        headers = {'User-Agent': 'Mozilla/5.0'}
-        resp = requests.get(url, headers=headers, timeout=10)
-        if resp.status_code == 200:
-            # 尝试把内容当作 YAML 解析
-            data = yaml.safe_load(resp.text)
+        resp = requests.get(line, headers=headers, timeout=10)
+        if resp.status_code != 200: return []
+        content = resp.text
+
+        # 逻辑 A: 如果是 YAML 格式 (针对你那几个链接)
+        if line.endswith('.yaml') or 'proxies:' in content:
+            data = yaml.safe_load(content)
             if isinstance(data, dict) and 'proxies' in data:
-                print(f"📦 从 {url[-15:]} 中剥离出 {len(data['proxies'])} 个节点")
                 return data['proxies']
-    except Exception as e:
-        print(f"❌ 剥离失败: {url}, 错误: {e}")
-    return extracted_proxies
+
+        # 逻辑 B: 如果是普通文本，正则匹配 hy2://
+        found_hy2 = re.findall(r'hy2://([^@]+)@([^:]+):(\d+)', content)
+        for pwd, host, port in found_hy2:
+            proxies.append({
+                "name": f"🚀_{host[:5]}_{port}",
+                "type": "hysteria2",
+                "server": host,
+                "port": int(port),
+                "password": pwd,
+                "ssl": True,
+                "skip-cert-verify": True
+            })
+    except: pass
+    return proxies
 
 def parse_and_convert():
+    final_proxies = []
+    seen_nodes = set()
+
+    # 1. 自动打捞部分 (保留原有功能)
+    # ... (这里调用之前的 search_github 函数获取 sources)
+    # for url in sources:
+    #     final_proxies.extend(fetch_nodes_from_anywhere(url))
+
+    # 2. 重点：处理你的 urls.txt
+    if os.path.exists("urls.txt"):
+        with open("urls.txt", "r", encoding="utf-8") as f:
+            for line in f:
+                nodes = fetch_nodes_from_anywhere(line)
+                for n in nodes:
+                    # 使用 server+port 作为唯一标识去重
+                    uid = f"{n.get('server')}:{n.get('port')}"
+                    if uid not in seen_nodes:
+                        final_proxies.append(n)
+                        seen_nodes.add(uid)
+
+    # 3. 构建标准 Clash 结构
     clash_config = {
-        "proxies": [],
+        "proxies": final_proxies,
         "proxy-groups": [
-            {"name": "🚀 自动选择", "type": "url-test", "proxies": [], "url": "http://www.gstatic.com/generate_204", "interval": 300},
-            {"name": "🔰 全部节点", "type": "select", "proxies": []}
+            {"name": "🚀 自动选择", "type": "url-test", "proxies": [p['name'] for p in final_proxies], "url": "http://www.gstatic.com/generate_204", "interval": 300},
+            {"name": "🔰 全部节点", "type": "select", "proxies": [p['name'] for p in final_proxies]}
         ],
         "rules": ["MATCH,🚀 自动选择"]
     }
     
-    seen_names = set()
-
-    # 处理 urls.txt 里的链接
-    if os.path.exists("urls.txt"):
-        with open("urls.txt", "r", encoding="utf-8") as f:
-            for line in f:
-                target_url = line.strip()
-                if not target_url: continue
-                
-                # 如果是 .yaml 结尾或者内容是配置文件
-                remote_proxies = fetch_and_extract_nodes(target_url)
-                for p in remote_proxies:
-                    # 防止重名导致 Clash 报错
-                    original_name = p.get('name', 'Unknown')
-                    if original_name not in seen_names:
-                        clash_config["proxies"].append(p)
-                        seen_names.add(original_name)
-
-    # 填充策略组
-    if clash_config["proxies"]:
-        p_names = [p["name"] for p in clash_config["proxies"]]
-        clash_config["proxy-groups"][0]["proxies"] = p_names
-        clash_config["proxy-groups"][1]["proxies"] = p_names
-        return yaml.dump(clash_config, allow_unicode=True, sort_keys=False)
-    return None
+    return yaml.dump(clash_config, allow_unicode=True, sort_keys=False)
 
 if __name__ == "__main__":
-    result = parse_and_convert()
-    if result:
-        with open("clash.yaml", "w", encoding="utf-8") as f:
-            f.write(result)
+    # 执行并写入 clash.yaml
