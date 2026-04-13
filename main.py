@@ -1,82 +1,42 @@
 import requests
-import re
-import os
 import yaml
 
-# --- 核心提取函数 ---
-def fetch_from_url(url):
-    proxies = []
-    headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'}
+# 你的目标 Raw 链接
+TARGET_URL = "https://raw.githubusercontent.com/Supprise0901/Fetch/refs/heads/main/Superspeed.yaml"
+
+def convert():
     try:
-        print(f"📡 正在处理: {url[:50]}...")
-        resp = requests.get(url, headers=headers, timeout=10)
-        if resp.status_code != 200: return []
+        print(f"正在获取节点: {TARGET_URL}")
+        resp = requests.get(TARGET_URL, timeout=15)
+        if resp.status_code != 200:
+            print("下载失败，请检查网络或链接")
+            return
         
-        content = resp.text
-        # 模式 A: 对方本身就是 Clash YAML 格式
-        if 'proxies:' in content:
-            try:
-                data = yaml.safe_load(content)
-                if isinstance(data, dict) and 'proxies' in data:
-                    return data['proxies']
-            except: pass
+        # 解析原始 YAML
+        raw_data = yaml.safe_load(resp.text)
+        if not raw_data or 'proxies' not in raw_data:
+            print("原始文件中没有找到 proxies 节点")
+            return
+
+        # 重新封装成标准 Clash 订阅格式
+        proxies = raw_data['proxies']
+        names = [p['name'] for p in proxies]
         
-        # 模式 B: 散装的 hy2:// 链接
-        hy2_raw = re.findall(r'hy2://([^@\s]+)@([^:\s/]+):(\d+)', content)
-        for pwd, host, port in hy2_raw:
-            proxies.append({
-                "name": f"🚀_{host[:5]}_{port}",
-                "type": "hysteria2",
-                "server": host,
-                "port": int(port),
-                "password": pwd,
-                "ssl": True,
-                "skip-cert-verify": True
-            })
-    except: pass
-    return proxies
+        clash_config = {
+            "proxies": proxies,
+            "proxy-groups": [
+                {"name": "🚀 自动选择", "type": "url-test", "proxies": names, "url": "http://www.gstatic.com/generate_204", "interval": 300},
+                {"name": "🔰 全部节点", "type": "select", "proxies": names}
+            ],
+            "rules": ["MATCH,🚀 自动选择"]
+        }
 
-def parse_and_convert():
-    all_proxies = []
-    seen_ids = set()
+        with open("clash.yaml", "w", encoding="utf-8") as f:
+            yaml.dump(clash_config, f, allow_unicode=True, sort_keys=False)
+        print(f"✅ 转换成功！共提取 {len(proxies)} 个节点")
 
-    # 1. 处理你的 urls.txt (最高优先级，包含那几个 YAML 链接)
-    if os.path.exists("urls.txt"):
-        with open("urls.txt", "r", encoding="utf-8") as f:
-            for line in f:
-                target = line.strip()
-                if not target: continue
-                new_nodes = fetch_from_url(target)
-                for n in new_nodes:
-                    uid = f"{n.get('server')}:{n.get('port')}"
-                    if uid not in seen_ids:
-                        all_proxies.append(n)
-                        seen_ids.add(uid)
-
-    # 2. 如果你想保留之前的 GitHub 自动打捞，可以在这里调用之前的 search 函数
-    # sources = search_github() 
-    # for s in sources: ... (逻辑同上，append 到 all_proxies)
-
-    if not all_proxies:
-        print("❌ 没捞到任何节点，检查下链接活不活着")
-        return None
-
-    # 3. 组装最终配置文件
-    names = [p['name'] for p in all_proxies]
-    config = {
-        "proxies": all_proxies,
-        "proxy-groups": [
-            {"name": "🚀 自动选择", "type": "url-test", "proxies": names, "url": "http://www.gstatic.com/generate_204", "interval": 300},
-            {"name": "🔰 全部节点", "type": "select", "proxies": names}
-        ],
-        "rules": ["MATCH,🚀 自动选择"]
-    }
-    return yaml.dump(config, allow_unicode=True, sort_keys=False)
+    except Exception as e:
+        print(f"发生错误: {e}")
 
 if __name__ == "__main__":
-    # 修正了 image_bb4009.png 里的缩进报错
-    final_yaml = parse_and_convert()
-    if final_yaml:
-        with open("clash.yaml", "w", encoding="utf-8") as f:
-            f.write(final_yaml)
-        print("✅ 炼金成功！clash.yaml 已刷新。")
+    convert()
