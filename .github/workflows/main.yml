@@ -1,43 +1,20 @@
-name: update-nodes
-
-on:
-  workflow_dispatch:        # 允许手动触发
-  schedule:
-    - cron: '0 0 * * *'     # 每天零点自动运行 (可选)
-
-jobs:
-  update-nodes:
-    runs-on: ubuntu-latest
-    steps:
-      - name: 签出代码
-        uses: actions/checkout@v3
-
-      - name: 调用转换后端并生成文件
+- name: 调用转换后端并生成文件
         run: |
-          # 定义变量以便于修改
-          # 替换下面的 [你的订阅链接] 为你实际的链接地址
-          SUB_URL="[你的订阅链接]"
-          # 更换了更稳定的后端接口 api.v1.mk
-          BACKEND_URL="https://api.v1.mk/sub?target=clash&url=${SUB_URL}"
+          # 1. 请务必将下面的链接放在单引号 '' 中，防止 shell 解析特殊字符
+          SUB_URL='这里替换成你的订阅链接'
           
-          echo "正在从后端获取转换后的配置..."
-          # 使用 -L 跟随重定向，-s 静默模式，-f 失败时报错
-          curl -L -f -s -o config.yaml "$BACKEND_URL"
-
-      - name: 检查文件是否有效
-        run: |
-          if [ -s config.yaml ]; then
-            echo "文件下载成功且不为空。"
-          else
-            echo "错误：生成的 config.yaml 文件为空，请检查后端或订阅链接！"
-            exit 1
-          fi
-
-      - name: 提交新节点
-        run: |
-          git config --local user.email "actions@github.com"
-          git config --local user.name "GitHub Action"
-          git add config.yaml
-          # 只有在文件有变动时才提交，防止报错
-          git diff --quiet && git diff --staged --quiet || git commit -m "自动更新节点配置 $(date)"
-          git push
+          # 2. 设置后端地址
+          BACKEND='https://api.v1.mk/sub'
+          
+          # 3. 构造完整请求（对变量进行严格引用）
+          # target=clash 代表转成 Clash 格式
+          FULL_URL="${BACKEND}?target=clash&url=${SUB_URL}"
+          
+          echo "正在尝试连接后端获取配置..."
+          
+          # 4. 执行下载
+          # -L: 跟随重定向
+          # -f: HTTP 错误时返回非零退出码
+          # -s: 静默模式
+          # -o: 输出文件名
+          curl -L -f -s -o config.yaml "$FULL_URL"
